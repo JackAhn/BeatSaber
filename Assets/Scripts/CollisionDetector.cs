@@ -31,20 +31,22 @@ public class CollisionDetector : MonoBehaviour
     {
         Vector3 a = gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position); //콜라이더 좌표 받아오기 위한 변수 생성
 
-        for(int i = 0; i < MusicParser.parsedMusic.Beats.Count; i++)
+
+        int ind = int.Parse(other.gameObject.name.Replace("Cube", ""));
+
+        //시작 위치 저장
+        startobjX = a.x;
+        startobjY = a.y;
+        objSight = (MusicParser.Sight)MusicParser.parsedMusic.Beats[ind].Sight; //큐브 자를 방향 저장
+        objHand = (MusicParser.Hand)MusicParser.parsedMusic.Beats[ind].Hand; //큐브 자를 손 위치 저장
+        /*for (int i = 0; i < MusicParser.parsedMusic.Beats.Count; i++)
         {
             if (i == int.Parse(other.gameObject.name.Replace("Cube", ""))) //생성된 큐브의 "Cube" replace 후 숫자만 가져와서 인덱스와 같은지 확인
             {
                 //Debug.Log(i);
-
-                //시작 위치 저장
-                startobjX = a.x; 
-                startobjY = a.y;
-                objSight = (MusicParser.Sight)MusicParser.parsedMusic.Beats[i].Sight; //큐브 자를 방향 저장
-                objHand = (MusicParser.Hand)MusicParser.parsedMusic.Beats[i].Hand; //큐브 자를 손 위치 저장
                 break;
             }
-        }
+        }*/
     }
 
     public void OnTriggerExit(Collider other)
@@ -59,6 +61,8 @@ public class CollisionDetector : MonoBehaviour
 
             //사용자가 자른 위치가 큐브의 자른 위치가 같은지 판단
             bool isCorrect = Checkcubecorrect();
+            //큐브 제거
+            Destroy(other.gameObject);
             if ((objHand == MusicParser.Hand.LEFT) && (isCorrect == true))
             {
                 GameManager.Instance.ScoreUp(); //스코어 증가
@@ -72,8 +76,6 @@ public class CollisionDetector : MonoBehaviour
             else
             //손과 반대로 쳤거나 자른 방향이 잘못되었다면
             {
-                //큐브 제거
-                Destroy(other.gameObject);
 
                 //이펙트 생성
                 Instantiate(explosion, new Vector3(endobjX, endobjY, a.z), transform.rotation);
@@ -100,19 +102,19 @@ public class CollisionDetector : MonoBehaviour
         switch (objSight)
         {
             case MusicParser.Sight.UP :
-                if (endobjY > startobjY)
+                if (endobjY >= startobjY)
                     return true;
                 return false;
             case MusicParser.Sight.DOWN:
-                if (endobjY < startobjY)
+                if (endobjY <= startobjY)
                     return true;
                 return false;
             case MusicParser.Sight.LEFT:
-                if (endobjX < startobjX)
+                if (endobjX <= startobjX)
                     return true;
                 return false;
             case MusicParser.Sight.RIGHT:
-                if (endobjX > startobjX)
+                if (endobjX >= startobjX)
                     return true;
                 return false;
         }

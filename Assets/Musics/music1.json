@@ -1,0 +1,136 @@
+{
+  "Title": "A",
+  "Artist": "g",
+  "BPM": 121,
+  "Difficulty": 2,
+  "Speed": 25,
+  "MusicSource": "music1.mp3",
+  "Beat": [
+    {
+      "X": 5,
+      "Y": 2,
+      "Time": 1000,
+      "Hand": 0,
+      "Sight": 3
+    },
+    {
+      "X": 9,
+      "Y": 4,
+      "Time": 1000,
+      "Hand": 1,
+      "Sight": 1
+    },
+    {
+      "X": 5,
+      "Y": 2,
+      "Time": 1000,
+      "Hand": 0,
+      "Sight": 3
+    },
+    {
+      "X": 9,
+      "Y": 4,
+      "Time": 1000,
+      "Hand": 1,
+      "Sight": 0
+    },
+    {
+      "X": 5,
+      "Y": 2,
+      "Time": 1000,
+      "Hand": 0,
+      "Sight": 1
+    },
+    {
+      "X": 9,
+      "Y": 4,
+      "Time": 1000,
+      "Hand": 1,
+      "Sight": 2
+    },
+    {
+      "X": 5,
+      "Y": 2,
+      "Time": 1000,
+      "Hand": 0,
+      "Sight": 3
+    },
+    {
+      "X": 9,
+      "Y": 4,
+      "Time": 1000,
+      "Hand": 1,
+      "Sight": 3
+    },
+    {
+      "X": 5,
+      "Y": 2,
+      "Time": 1000,
+      "Hand": 0,
+      "Sight": 3
+    },
+    {
+      "X": 9,
+      "Y": 4,
+      "Time": 1000,
+      "Hand": 1,
+      "Sight": 2
+    },
+    {
+      "X": 5,
+      "Y": 2,
+      "Time": 1000,
+      "Hand": 0,
+      "Sight": 3
+    },
+    {
+      "X": 9,
+      "Y": 4,
+      "Time": 1000,
+      "Hand": 1,
+      "Sight": 2
+    },
+    {
+      "X": 5,
+      "Y": 2,
+      "Time": 1000,
+      "Hand": 0,
+      "Sight": 3
+    },
+    {
+      "X": 9,
+      "Y": 4,
+      "Time": 1000,
+      "Hand": 1,
+      "Sight": 2
+    },
+    {
+      "X": 5,
+      "Y": 2,
+      "Time": 1000,
+      "Hand": 0,
+      "Sight": 3
+    },
+    {
+      "X": 9,
+      "Y": 4,
+      "Time": 1000,
+      "Hand": 1,
+      "Sight": 2
+    },
+    {
+      "X": 5,
+      "Y": 2,
+      "Time": 1000,
+      "Hand": 0,
+      "Sight": 3
+    },
+    {
+      "X": 9,
+      "Y": 4,
+      "Time": 1000,
+      "Hand": 1,
+      "Sight": 2
+    }
+  ]
+}

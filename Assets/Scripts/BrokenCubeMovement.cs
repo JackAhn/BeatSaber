@@ -5,56 +5,92 @@ using UnityEngine;
 
 public class BrokenCubeMovement : MonoBehaviour {
 
-    private float speed = 5f;
+    public static int LRUD;
+    public static bool isOver = false;
+    private float speed = 1f;
+
 
 	// Use this for initialization
 	void Start () {
-        speed = MusicParser.Instance.Speed;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        BrokencubeTranslate();
+        BrokencubeTranslate(LRUD);
         if (transform.position.y < 0)
             Destroy(this.gameObject);
 	}
 
 
-    private void BrokencubeTranslate()
+    private void BrokencubeTranslate(int LRUD)
     {
-        if (transform.name.Equals("CubeUp"))
+        if (transform.name.Contains("CubeU"))
         {
-            /*if (LeftRight == 0)
+            switch (transform.name)
             {
-                transform.GetComponent<Rigidbody>().AddForce(new Vector3(-1, 0, 0) * speed, ForceMode.Impulse);
+                case "CubeUL":
+                    //transform.rotation = Quaternion.AngleAxis(-30, Vector3.up);
+                    transform.GetComponent<Rigidbody>().AddForce(new Vector3(-1, 0, 0) * speed, ForceMode.Impulse);
+                    break;
+                case "CubeUR":
+                    //transform.rotation = Quaternion.AngleAxis(30, Vector3.up);
+                    transform.GetComponent<Rigidbody>().AddForce(new Vector3(1, 0, 0) * speed, ForceMode.Impulse);
+                    break;
             }
-            else
+            //transform.Translate(new Vector3(0, speed * Time.deltaTime, -0.4f))
+        }
+        else if (transform.name.Contains("CubeD"))
+        {
+            switch (transform.name)
             {
-                transform.GetComponent<Rigidbody>().AddForce(new Vector3(1, 0, 0) * speed, ForceMode.Impulse);
-            }*/
-            transform.Translate(new Vector3(0, speed * Time.deltaTime, 1));
+                case "CubeDL":
+                    //transform.rotation = Quaternion.AngleAxis(30, Vector3.up);
+                    transform.GetComponent<Rigidbody>().AddForce(new Vector3(-1, 0, 0) * speed, ForceMode.Impulse);
+                    break;
+                case "CubeDR":
+                    //transform.rotation = Quaternion.AngleAxis(-30, Vector3.up);
+                    transform.GetComponent<Rigidbody>().AddForce(new Vector3(1, 0, 0) * speed, ForceMode.Impulse);
+                    break;
+            }
+            //transform.GetComponent<Rigidbody>().AddForce(new Vector3(0, -1, 0) * speed, ForceMode.Impulse);
+            //transform.rotation = Quaternion.AngleAxis(-30, Vector3.right);
+            //transform.Translate(new Vector3(-speed * Time.deltaTime, 0, -0.4f));
         }
-        else if (transform.name.Equals("CubeLeft"))
+        else if (transform.name.Contains("CubeL"))
         {
-            transform.Translate(new Vector3(-speed * Time.deltaTime, 0, -1));
-            //transform.Translate(ran * cubect, -speed * Time.deltaTime , 0);
-        }
-        else if (transform.name.Equals("CubeRight"))
-        {
-            transform.Translate(new Vector3(speed * Time.deltaTime, 0, -1));
+            Color a;
+            
+            switch (transform.name)
+            {
+                case "CubeLU":
+                    transform.rotation = Quaternion.AngleAxis(30, Vector3.up);
+                    transform.GetComponent<Rigidbody>().AddForce(new Vector3(-1, 0, 0) * speed, ForceMode.Impulse);
+                    break;
+                case "CubeLD":
+                    transform.rotation = Quaternion.AngleAxis(-30, Vector3.up);
+                    transform.GetComponent<Rigidbody>().AddForce(new Vector3(-1, 0, 0) * speed, ForceMode.Impulse);
+                    break;
+            }
+            //transform.GetComponent<Rigidbody>().AddForce(new Vector3(0, 1, 0) * speed, ForceMode.Impulse);
+            //transform.rotation = Quaternion.AngleAxis(-30, Vector3.right);
+            //transform.Translate(new Vector3(speed * Time.deltaTime, 0, -0.4f));
             //transform.Translate(-ran * cubect, -speed * Time.deltaTime, 0);
         }
-        else if (transform.name.Equals("CubeDown"))
+        else if (transform.name.Contains("CubeR"))
         {
-            /*if (LeftRight == 0)
+            switch (transform.name)
             {
-                transform.GetComponent<Rigidbody>().AddForce(new Vector3(-1, -1, -1) * speed, ForceMode.Acceleration);
+                case "CubeRU":
+                    transform.rotation = Quaternion.AngleAxis(-30, Vector3.up);
+                    transform.GetComponent<Rigidbody>().AddForce(new Vector3(1, 0, 0) * speed, ForceMode.Impulse);
+                    break;
+                case "CubeRD":
+                    transform.rotation = Quaternion.AngleAxis(30, Vector3.up);
+                    transform.GetComponent<Rigidbody>().AddForce(new Vector3(1, 0, 0) * speed, ForceMode.Impulse);
+                    break;
             }
-            else
-            {
-                transform.GetComponent<Rigidbody>().AddForce(new Vector3(1, -1, -1) * speed, ForceMode.Acceleration);
-            }*/
-            transform.Translate(new Vector3(0, -speed * Time.deltaTime, 1));
+            //transform.Translate(new Vector3(0, -speed * Time.deltaTime, -0.4f));
         }
     }
 }

@@ -6,11 +6,9 @@ public class CubeMovement : MonoBehaviour {
 
     public GameObject explosion; //폭발 이펙트
     private float speed;
-    private FadeInOut fio;
 
     // Use this for initialization
     void Start () {
-        fio = new FadeInOut();
         speed = MusicParser.Instance.Speed;
 	}
 	
@@ -19,7 +17,7 @@ public class CubeMovement : MonoBehaviour {
         transform.Translate(0, 0, -speed * Time.deltaTime);
         if(transform.position.z <= 0.2f){
             //Bad 이미지 띄우기
-            //ShowImage.setImage(1);
+            ShowImage.Instance.setImage(1);
 
             //Life 감소
             GameManager.Instance.LifeDown();

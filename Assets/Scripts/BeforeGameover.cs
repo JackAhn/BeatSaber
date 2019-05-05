@@ -20,6 +20,23 @@ public class BeforeGameover : MonoBehaviour {
             GameObject cube = GameObject.Find("Cube" + i);
             if (cube != null) //큐브가 존재하는지 확인
             {
+                Debug.Log("cube " + i + ": " + (MusicParser.Sight)MusicParser.parsedMusic.Beats[i].Sight);
+                switch ((MusicParser.Sight)MusicParser.parsedMusic.Beats[i].Sight)
+                {
+                    case MusicParser.Sight.UP:
+                        BrokenCubeMovement.LRUD = 3;
+                        break;
+                    case MusicParser.Sight.DOWN:
+                        BrokenCubeMovement.LRUD = 4;
+                        break;
+                    case MusicParser.Sight.LEFT:
+                        BrokenCubeMovement.LRUD = 1;
+                        break;
+                    case MusicParser.Sight.RIGHT:
+                        BrokenCubeMovement.LRUD = 2;
+                        break;
+                }
+                Debug.Log("cube " + i + ": " + BrokenCubeMovement.LRUD);
                 Destroy(cube); //큐브 삭제
                 Vector3 cubepos = cube.gameObject.transform.position;
 
@@ -28,7 +45,7 @@ public class BeforeGameover : MonoBehaviour {
                     (MusicParser.Sight)MusicParser.parsedMusic.Beats[i].Sight, (MusicParser.Hand)MusicParser.parsedMusic.Beats[i].Hand);
             }
         }
-        image = GameObject.FindGameObjectWithTag("imgPanel").GetComponent<Image>();
+        //image = GameObject.FindGameObjectWithTag("imgPanel").GetComponent<Image>();
         //StartCoroutine nullreference exception 발생 -> 구현 안 됨
         //StartCoroutine(this.FadeIn());
     }

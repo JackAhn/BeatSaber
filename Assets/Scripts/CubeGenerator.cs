@@ -34,20 +34,47 @@ public class CubeGenerator : MonoBehaviour
     public void CreateBrokenCube(float x, float y, float z, MusicParser.Sight s, MusicParser.Hand h)
     {
         GameObject obj1, obj2;
-        if (s == MusicParser.Sight.UP || s == MusicParser.Sight.DOWN)
+        switch (s)
         {
-            obj1 = Instantiate(h == MusicParser.Hand.LEFT ? BrokenBlueCube2 : BrokenRedCube2, new Vector3(x, y, z), Quaternion.EulerAngles(new Vector3(0, 0)));
+            case MusicParser.Sight.UP:
+                obj1 = Instantiate(h == MusicParser.Hand.LEFT ? BrokenBlueCube2 : BrokenRedCube2, new Vector3(x-1, y, z), Quaternion.Euler(new Vector3(0, 0, 0)));
+                obj1.name = "CubeUL";
+                obj2 = Instantiate(h == MusicParser.Hand.LEFT ? BrokenBlueCube2 : BrokenRedCube2, new Vector3(x+1, y, z), Quaternion.Euler(new Vector3(0, 0, 0)));
+                obj2.name = "CubeUR";
+                break;
+            case MusicParser.Sight.DOWN:
+                obj1 = Instantiate(h == MusicParser.Hand.LEFT ? BrokenBlueCube2 : BrokenRedCube2, new Vector3(x-1, y, z), Quaternion.Euler(new Vector3(0, 0, 0)));
+                obj1.name = "CubeDL";
+                obj2 = Instantiate(h == MusicParser.Hand.LEFT ? BrokenBlueCube2 : BrokenRedCube2, new Vector3(x+1, y, z), Quaternion.Euler(new Vector3(0, 0, 0)));
+                obj2.name = "CubeDR";
+                break;
+            case MusicParser.Sight.LEFT:
+                obj1 = Instantiate(h == MusicParser.Hand.LEFT ? BrokenBlueCube1 : BrokenRedCube1, new Vector3(x, y+1, z), Quaternion.Euler(new Vector3(0, 0, 0)));
+                obj1.name = "CubeLU";
+                obj2 = Instantiate(h == MusicParser.Hand.LEFT ? BrokenBlueCube1 : BrokenRedCube1, new Vector3(x, y-1, z), Quaternion.Euler(new Vector3(0, 0, 0)));
+                obj2.name = "CubeLD";
+                break;
+            case MusicParser.Sight.RIGHT:
+                obj1 = Instantiate(h == MusicParser.Hand.LEFT ? BrokenBlueCube1 : BrokenRedCube1, new Vector3(x, y+1, z), Quaternion.Euler(new Vector3(0, 0, 0)));
+                obj1.name = "CubeRU";
+                obj2 = Instantiate(h == MusicParser.Hand.LEFT ? BrokenBlueCube1 : BrokenRedCube1, new Vector3(x, y-1, z), Quaternion.Euler(new Vector3(0, 0, 0)));
+                obj2.name = "CubeRD";
+                break;
+        }
+        /*if (s == MusicParser.Sight.UP || s == MusicParser.Sight.DOWN)
+        {
+            obj1 = Instantiate(h == MusicParser.Hand.LEFT ? BrokenBlueCube2 : BrokenRedCube2, new Vector3(x, y, z), Quaternion.Euler(new Vector3(0, 0, 0)));
             obj1.name = "CubeLeft";
-            obj2 = Instantiate(h == MusicParser.Hand.LEFT ? BrokenBlueCube2 : BrokenRedCube2, new Vector3(x + 2, y, z), Quaternion.EulerAngles(new Vector3(0, 0)));
+            obj2 = Instantiate(h == MusicParser.Hand.LEFT ? BrokenBlueCube2 : BrokenRedCube2, new Vector3(x, y, z), Quaternion.Euler(new Vector3(0, 0, 0)));
             obj2.name = "CubeRight";
         }
         else if (s == MusicParser.Sight.LEFT || s == MusicParser.Sight.RIGHT)
         {
-            obj1 = Instantiate(h == MusicParser.Hand.LEFT ? BrokenBlueCube1 : BrokenRedCube1, new Vector3(x, y, z), Quaternion.EulerAngles(new Vector3(0, 10)));
+            obj1 = Instantiate(h == MusicParser.Hand.LEFT ? BrokenBlueCube1 : BrokenRedCube1, new Vector3(x, y, z), Quaternion.Euler(new Vector3(0, 0, 0)));
             obj1.name = "CubeUp";
-            obj2 = Instantiate(h == MusicParser.Hand.LEFT ? BrokenBlueCube1 : BrokenRedCube1, new Vector3(x, y - 2, z), Quaternion.EulerAngles(new Vector3(0, -10)));
+            obj2 = Instantiate(h == MusicParser.Hand.LEFT ? BrokenBlueCube1 : BrokenRedCube1, new Vector3(x, y, z), Quaternion.Euler(new Vector3(0, 0, 0)));
             obj2.name = "CubeDown";
-        }
+        }*/
     }
 
     private Quaternion GetQuaternion(MusicParser.Sight s)

@@ -1,57 +1,59 @@
-﻿using System.Collections;
+﻿using System.Threading;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShowImage : MonoBehaviour {
 
-    private static Image myImage;
+    public static ShowImage Instance;
 
-    private float animTime = 0.5f; //Fade 애니메이션 재생 시간
-
+    private Image myImage;
+    private Sprite sprite;
     private float start = 1f;
-    private float end = 0f;
-    private float time = 0f;
+    private IEnumerator coroutine;
 
     private bool isplay = false;
 
-    void Update()
+    void Awake()
     {
-
+        Instance = this;
     }
 
-    public static void setImage(int data)
+    public void setImage(int data)
     {
-        //Debug.Log(data);
+        start = 1f;
         myImage = GameObject.Find("Image").GetComponent<Image>();
+        //Debug.Log(data);
         var imgcolor = myImage.color;
         imgcolor.a = 1f;
         myImage.color = imgcolor;
         switch (data)
         {
             case 1:
-                myImage.sprite = Resources.Load<Sprite>("Image/bad");
+                sprite = Resources.Load<Sprite>("Image/bad");
+                break;
+            case 2:
+                sprite = Resources.Load<Sprite>("Image/good");
                 break;
         }
-        imgcolor = myImage.color;
-        imgcolor.a = 0f;
-        myImage.color = imgcolor;
+        myImage.sprite = sprite;
+        if(coroutine == null)
+        {
+            coroutine = PlayFadeIn();
+            StartCoroutine(coroutine);
+        }
     }
 
     IEnumerator PlayFadeIn()
     {
-        isplay = true;
         Color color = myImage.color;
-        time = 0f;
-        color.a = Mathf.Lerp(start, end, time);
-
-        while(color.a < 0.5f)
+        while (start != 0f)
         {
-            time += Time.deltaTime / animTime;
-            color.a = Mathf.Lerp(start, end, time);
+            start -= 0.1f;
+            color.a = start;
             myImage.color = color;
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
         }
-        isplay = false;
     }
 }

@@ -25,23 +25,38 @@ public class CollisionDetector : MonoBehaviour
     private MusicParser.Hand objHand; //큐브가 생성된 위치(왼쪽, 오른쪽)
 
     public GameObject explosion; //폭발 이펙트
-
+    public GameObject slasheffect;
     
     public void OnTriggerEnter(Collider other)
     {
-        Vector3 a = gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position); //콜라이더 좌표 받아오기 위한 변수 생성
-
-
-        int ind = int.Parse(other.gameObject.name.Replace("Cube", ""));
-
+        if (other.gameObject.name.Contains("Cube"))
+        {
+            Vector3 a = other.GetComponent<Transform>().position; //콜라이더 좌표 받아오기 위한 변수 생성
+            int ind = int.Parse(other.gameObject.name.Replace("Cube", ""));
         //시작 위치 저장
-        startobjX = a.x;
-        startobjY = a.y;
-        objSight = (MusicParser.Sight)MusicParser.parsedMusic.Beats[ind].Sight; //큐브 자를 방향 저장
-        objHand = (MusicParser.Hand)MusicParser.parsedMusic.Beats[ind].Hand; //큐브 자를 손 위치 저장
+            startobjX = a.x;
+            startobjY = a.y;
+            objSight = (MusicParser.Sight)MusicParser.parsedMusic.Beats[ind].Sight; //큐브 자를 방향 저장
+            objHand = (MusicParser.Hand)MusicParser.parsedMusic.Beats[ind].Hand; //큐브 자를 손 위치 저장
+            switch (objSight)
+            {
+                case MusicParser.Sight.UP:
+                    BrokenCubeMovement.LRUD = 3;
+                    break;
+                case MusicParser.Sight.DOWN:
+                    BrokenCubeMovement.LRUD = 4;
+                    break;
+                case MusicParser.Sight.LEFT:
+                    BrokenCubeMovement.LRUD = 1;
+                    break;
+                case MusicParser.Sight.RIGHT:
+                    BrokenCubeMovement.LRUD = 2;
+                    break;
+            }
+        }
         /*for (int i = 0; i < MusicParser.parsedMusic.Beats.Count; i++)
         {
-            if (i == int.Parse(other.gameObject.name.Replace("Cube", ""))) //생성된 큐브의 "Cube" replace 후 숫자만 가져와서 인덱스와 같은지 확인
+            if (i == int.Parse(other.gameObject.name.Replace("Cube", ""))) //생성된 큐브의 "Cube" replace  후 숫자만 가져와서 인덱스와 같은지 확인
             {
                 //Debug.Log(i);
                 break;
@@ -53,7 +68,8 @@ public class CollisionDetector : MonoBehaviour
     {
         if(other.tag == "Cubes")
         {
-            Vector3 a = gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+            ShowImage im = new ShowImage();
+            Vector3 a = other.GetComponent<Transform>().position;
 
             //트리거(=검)가 나갔을 때 위치 저장
             endobjX = a.x;
@@ -66,17 +82,21 @@ public class CollisionDetector : MonoBehaviour
             if ((objHand == MusicParser.Hand.LEFT) && (isCorrect == true))
             {
                 GameManager.Instance.ScoreUp(); //스코어 증가
+                ShowImage.Instance.setImage(2);
+                Instantiate(slasheffect, new Vector3(endobjX, endobjY, a.z), transform.rotation);
                 CubeGenerator.Instance.CreateBrokenCube(endobjX, endobjY, a.z, objSight, objHand); //부서진 큐브 생성
             }
             else if ((objHand == MusicParser.Hand.RIGHT) && (isCorrect == true))
             {
                 GameManager.Instance.ScoreUp(); //스코어 증가
+                ShowImage.Instance.setImage(2);
                 CubeGenerator.Instance.CreateBrokenCube(endobjX, endobjY, a.z, objSight, objHand); //부서진 큐브 생성
+                Instantiate(slasheffect, new Vector3(endobjX, endobjY, a.z), transform.rotation);
             }
             else
             //손과 반대로 쳤거나 자른 방향이 잘못되었다면
             {
-
+                ShowImage.Instance.setImage(1);
                 //이펙트 생성
                 Instantiate(explosion, new Vector3(endobjX, endobjY, a.z), transform.rotation);
 
